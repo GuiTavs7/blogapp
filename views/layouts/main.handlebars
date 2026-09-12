@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blog NodeJS</title>
+</head>
+<body>
+    {{>_navbar}}
+    <div class="container mt-4">
+
+        {{#if error}}
+            <div class="alert alert-danger">
+                {{error}}
+            </div>
+        {{else}}
+        {{/if}}
+
+        {{>_msg}}
+        {{{body}}}
+        
+    </div>
+</body>
+<!-- script src="/js/jquery.min.js"></script> NÃO PRECISA NO BOOTSTRAP 5 --> 
+<!-- <script src="/js/popper.min.js"></script> NÃO PRECISA NO BOOTSTRAP 5 -->
+<script src="/js/bootstrap.bundle.min.js"></script>
+<!-- Script para deletar as mensagens de erro da tela após determinado tempo -->
+<script>
+    setTimeout(function() {
+        const alert = document.querySelectorAll('.alert');
+
+        if (alert) {
+            alert.forEach((a) => a.remove());
+        }
+    }, 5000);
+</script>
+</html>
