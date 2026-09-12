@@ -52,7 +52,7 @@ const db = require('./config/db');
 
     // mongoose.Promise = global.Promise; -> Não é mais necessário a partir do Mongoose 6, pois ele já utiliza Promises nativamente.
 
-    console.log(`🌍 Ambiente: ${process.env.NODE_ENV} || URI: ${db.mongoURI}`);
+    console.log(`🌍 Ambiente: ${process.env.NODE_ENV}`);
 
     mongoose.connect(db.mongoURI).then(() => {
         if(process.env.NODE_ENV === 'production'){
