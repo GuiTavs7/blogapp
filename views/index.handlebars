@@ -9,9 +9,18 @@
         Aqui você pode aprender, compartilhar e acompanhar novas publicações (este 
         é um blog simples, desenvolvido com Node.js + Express + MongoDB).
     </p>
-    <a class="btn btn-primary btn-lg" href="#" role="button">
-        Crie sua conta
-    </a>
+    {{#if user}}
+        <a class="btn btn-primary btn-lg" href="/usuarios/postagens/add" role="button">
+            Criar nova postagem
+        </a>
+    {{else}}
+        <a class="btn btn-primary btn-lg" href="/usuarios/login" role="button">
+            Faça login
+        </a>
+        <a class="btn btn-primary btn-lg" href="/usuarios/registro" role="button">
+            Crie sua conta
+        </a>
+    {{/if}}
 </div>
 
 <hr>
