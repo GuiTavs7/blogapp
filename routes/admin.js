@@ -6,6 +6,7 @@ const Categoria = mongoose.model('Categorias');
 require('../models/Postagem');
 const Postagem = mongoose.model('postagens');
 const {isAdmin} = require('../helpers/isAdmin');
+const {upload} = require('../config/upload');
 
 router.get('/', isAdmin, (req, res) => {
     res.render('admin/index');
@@ -135,7 +136,7 @@ router.get('/postagens/add', isAdmin, (req, res) => {
     });
 });
 
-router.post('/postagens/nova', isAdmin, (req, res) => {
+router.post('/postagens/nova', isAdmin, upload.single('imagem'), (req, res) => {
     let erros = [];
 
     if (!req.body.titulo || typeof req.body.titulo == "undefined" || req.body.titulo == null) {
@@ -154,13 +155,16 @@ router.post('/postagens/nova', isAdmin, (req, res) => {
         erros.push({ texto: "Categoria inválida, registre uma categoria" });
     }
     if (erros.length > 0) {
-        return res.render('admin/addpostagem', { erros: erros });
+        return Categoria.find().lean().then((categorias) => {
+            res.render('admin/addpostagem', { erros: erros, categorias: categorias, postagem: req.body });
+        });
     }
     else{
         const novaPostagem = {
             titulo: req.body.titulo,
             slug: req.body.slug,
             descricao: req.body.descricao,
+            imagem: req.file ? req.file.filename : null,
             conteudo: req.body.conteudo,
             categoria: req.body.categoria
         };
@@ -225,6 +229,7 @@ router.post("/postagens/edit/:id", isAdmin, (req, res) => {
             postagem.descricao = req.body.descricao;
             postagem.conteudo = req.body.conteudo;
             postagem.categoria = req.body.categoria;
+            postagem.imagem = req.file ? req.file.filename : null;
 
             postagem.save().then(() => {
                 req.flash("success_msg", "Postagem atualizada com sucesso!");

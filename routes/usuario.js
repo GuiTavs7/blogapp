@@ -8,6 +8,7 @@ const Categoria = mongoose.model('Categorias');
 const Postagem = mongoose.model('postagens');
 const bcrypt = require('bcryptjs');
 const passport = require('passport');
+const {upload} = require('../config/upload');
 
 // Rotas de registro e login dos usuários
 
@@ -111,7 +112,7 @@ router.get('/postagens/add', estaLogado, (req, res) => {
     });
 });
 
-router.post('/postagens/nova', estaLogado, (req, res) => {
+router.post('/postagens/nova', upload.single('imagem'), estaLogado, (req, res) => {
     let erros = [];
 
     if (!req.body.titulo || typeof req.body.titulo == "undefined" || req.body.titulo == null) {
@@ -130,7 +131,9 @@ router.post('/postagens/nova', estaLogado, (req, res) => {
         erros.push({ texto: "Categoria inválida, registre uma categoria" });
     }
     if (erros.length > 0) {
-        return res.render('usuarios/addpostagem', { erros: erros });
+        return Categoria.find().lean().then((categorias) => {
+            res.render('usuarios/addpostagem', { erros: erros, categorias: categorias, postagem: req.body });
+        }); 
     }
     else{
         const novaPostagem = {
@@ -138,6 +141,7 @@ router.post('/postagens/nova', estaLogado, (req, res) => {
             slug: req.body.slug,
             descricao: req.body.descricao,
             conteudo: req.body.conteudo,
+            imagem: req.file ? req.file.filename : null,
             categoria: req.body.categoria
         };
         new Postagem(novaPostagem).save().then(() => {

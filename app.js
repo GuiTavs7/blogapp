@@ -16,6 +16,8 @@ const usuarios = require('./routes/usuario');
 const passport = require('passport');
 require('./config/auth')(passport);
 const db = require('./config/db');
+const {upload} = require('./config/upload');
+const formatarData = require('./helpers/formatarData');
 
 // 2) Configurações
 
@@ -45,7 +47,12 @@ const db = require('./config/db');
     app.use(bodyParser.json());
 
     // Handlebars
-    app.engine('handlebars', handlebars.engine({ defaultLayout: 'main' }));
+    app.engine('handlebars', handlebars.engine({ 
+        defaultLayout: 'main',
+        helpers: {
+            formatarData: formatarData
+        }
+    }));
     app.set('view engine', 'handlebars');
 
     // Mongoose
@@ -80,7 +87,7 @@ const db = require('./config/db');
 
 // 3) Rotas
     app.get('/', (req, res) => {
-        Postagem.find().lean().sort({data: 'desc'}).then((postagens) => {
+        Postagem.find().populate('categoria').lean().sort({data: 'desc'}).then((postagens) => {
             res.render('index', { postagens: postagens });
         }).catch((err) => {
             req.flash('error_msg', 'Houve um erro ao listar as postagens');
@@ -114,7 +121,7 @@ const db = require('./config/db');
     app.get('/categorias/:slug', (req, res) => {
         Categorias.findOne({slug: req.params.slug}).lean().then((categoria) => {
             if(categoria){
-                Postagem.find({categoria: categoria._id}).lean().then((postagens) => {
+                Postagem.find({categoria: categoria._id}).populate('categoria').lean().then((postagens) => {
                     res.render('categorias/postagens', { categoria: categoria, postagens: postagens });
                 }).catch((err) => {
                     req.flash('error_msg', 'Houve um erro ao listar as postagens');

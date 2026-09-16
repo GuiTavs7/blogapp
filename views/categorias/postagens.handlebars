@@ -4,6 +4,10 @@
     <div class="card mt-4">
         <div class="card-body">
             <h3>{{titulo}}</h3>
+            {{#if imagem}}
+                <img src="/uploads/{{imagem}}" alt="{{titulo}}" class="img-fluid rounded mb-3">
+                <br>
+            {{/if}}
             <p>{{descricao}}</p>
             <a href="/postagem/{{slug}}"><button class="btn btn-success">Leia mais</button></a>
             <hr>

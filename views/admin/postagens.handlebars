@@ -6,6 +6,9 @@
     <div class="card card-m3 mt-4">
         <div class="card-body">
             <h4 class="card-title">{{titulo}}</h4>
+            {{#if imagem}}
+                <img src="/uploads/{{imagem}}" alt="{{titulo}}" class="img-fluid rounded mb-3">
+            {{/if}}
             <p>Descrição: {{descricao}}</p>
             <small class="card-text">Slug: {{slug}}</small><br>
             <small>Data de criação: {{data}}</small> <br>
