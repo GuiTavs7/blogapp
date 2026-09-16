@@ -2,4 +2,8 @@ node_modules/
 
 src/docs/atlas-credentials.env
 
+scripts/criarAdmin.js
+
 mudancas.MD
+
+.env

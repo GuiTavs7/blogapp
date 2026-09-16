@@ -4,6 +4,7 @@
     "body-parser": "^2.3.0",
     "bootstrap": "^5.3.8",
     "connect-flash": "^0.1.1",
+    "dotenv": "^17.4.2",
     "express": "^5.2.1",
     "express-handlebars": "^8.0.1",
     "express-session": "^1.19.0",
@@ -15,10 +16,10 @@
   "name": "blogapp",
   "version": "1.0.0",
   "main": "app.js",
-  "devDependencies": {},
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node app.js"
+    "start": "node app.js",
+    "admin": "node scripts/criarAdmin.js"
   },
   "author": "Guilherme Tavares Pinheiro",
   "license": "ISC",

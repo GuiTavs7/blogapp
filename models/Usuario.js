@@ -10,10 +10,10 @@ const Usuario = new Schema({
     type: String,
     required: true
   },
-  // Para ser admin, o valor do campo isAdmin deve ser 1, caso contrário, será 0!
+  // Para ser admin, o valor do campo isAdmin deve ser true, caso contrário, será false!
   isAdmin: {
-    type: Number,
-    default: 0
+    type: Boolean,
+    default: false
   },
   senha: {
     type: String,
