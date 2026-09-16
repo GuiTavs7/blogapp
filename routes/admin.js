@@ -117,6 +117,7 @@ router.post('/categorias/delete/:id', isAdmin, (req, res) => {
 
 router.get('/postagens', isAdmin, (req, res) => {
     Postagem.find().populate("categoria").sort({data: "desc"}).lean().then((postagens) => {
+        console.log("Postagens: ", postagens);
         res.render('admin/postagens', {postagens: postagens});
     }).catch((err) => {
         req.flash("error_msg", "Houve um erro ao listar as postagens");
