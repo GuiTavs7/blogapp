@@ -112,7 +112,19 @@ router.get('/postagens/add', estaLogado, (req, res) => {
     });
 });
 
-router.post('/postagens/nova', upload.single('imagem'), estaLogado, (req, res) => {
+router.post('/postagens/nova', estaLogado, (req, res, next) => {
+    upload.single('imagem')(req, res, (err) => {
+        if (err) {
+            console.error('Erro ao fazer upload da imagem:', err);
+            req.flash('error_msg', err.code === 'LIMIT_FILE_SIZE'
+                ? 'A imagem deve ter no máximo 5 MB.'
+                : 'Não foi possível enviar a imagem. Verifique o formato e as configurações do Cloudinary.');
+            return res.redirect('/usuarios/postagens/add');
+        }
+
+        next();
+    });
+}, (req, res) => {
     let erros = [];
 
     if (!req.body.titulo || typeof req.body.titulo == "undefined" || req.body.titulo == null) {
