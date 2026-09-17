@@ -2,6 +2,12 @@
 
 Aplicação de blog desenvolvida com Node.js, Express, MongoDB, Mongoose e Handlebars. O projeto permite cadastrar usuários, autenticar usuários, criar postagens, organizar postagens por categorias e fazer upload de imagens para o Cloudinary.
 
+## Aplicação online
+
+Acesse a versão hospedada no Render:
+
+👉 [BlogApp](https://blogapp-wh9i.onrender.com)
+
 ## Funcionalidades
 
 - Página inicial com as postagens mais recentes.
