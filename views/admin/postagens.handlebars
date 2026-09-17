@@ -11,7 +11,7 @@
             {{/if}}
             <p>Descrição: {{descricao}}</p>
             <small class="card-text">Slug: {{slug}}</small><br>
-            <small>Data de criação: {{data}}</small> <br>
+            <small>📆 {{formatarData data}}</small> <br>
             <small>Categoria: {{categoria.nome}}</small> <br>
             <a href="/admin/postagens/edit/{{_id}}"><button class="btn btn-success mt-4">Editar</button></a>
             <!-- Formulário de deletar postagens -->

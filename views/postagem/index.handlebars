@@ -2,7 +2,7 @@
     <div class="card-body">
         <h1>{{postagem.titulo}}</h1>
         <hr>
-        <small>Data de publicação: {{postagem.data}}</small>
+        <small>📆 {{formatarData data}}</small>
         <hr>
         {{#if postagem.imagem}}
             <img src="/uploads/{{postagem.imagem}}" alt="{{postagem.titulo}}" class="img-fluid rounded mb-3">
