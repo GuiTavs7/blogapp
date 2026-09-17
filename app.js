@@ -79,6 +79,8 @@ const formatarData = require('./helpers/formatarData');
 
     // Public
     app.use(express.static(path.join(__dirname, 'public')));
+    app.use('/icon', express.static(path.join(__dirname, 'src/icon')));
+    app.use('/img', express.static(path.join(__dirname, 'src/img')));
 
     // Criando um middleware para logar todas as requisições
     app.use((req, res, next) => {
