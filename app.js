@@ -1,5 +1,6 @@
 // 1) Carregando Módulos
 
+require('dotenv').config(); // Carrega as variáveis de ambiente do arquivo .env
 const express = require('express');
 const handlebars = require('express-handlebars');
 const bodyParser = require('body-parser');

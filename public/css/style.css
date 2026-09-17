@@ -7,6 +7,16 @@
     object-fit: cover;
 }
 
+.imagem-modal {
+    display: block;
+    width: auto;
+    max-width: 100%;
+    height: auto;
+    max-height: 75vh;
+    object-fit: contain;
+    margin: 0 auto;
+}
+
 @media (max-width: 576px) {
     .postagem-imagem {
         height: 200px;

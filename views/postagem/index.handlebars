@@ -2,11 +2,41 @@
     <div class="card-body">
         <h1>{{postagem.titulo}}</h1>
         <hr>
-        <small>📆 {{formatarData data}}</small>
+        <small>📆 {{formatarData postagem.data}}</small>
         <hr>
         {{#if postagem.imagem}}
             <img src="{{postagem.imagem}}" alt="{{postagem.titulo}}" class="img-fluid postagem-imagem rounded mb-3">
             <br>
+
+            <button type="button" class="btn btn-primary d-block mb-3" data-bs-toggle="modal" data-bs-target="#modalImagem"> Ampliar imagem
+            </button>
+
+            <div class="modal fade" id="modalImagem" tabindex="-1" aria-labelledby="modalImagemLabel" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered modal-xl">
+                    <div class="modal-content bg-dark">
+                        <div class="modal-header border-0">
+                            <h5 class="modal-title text-white" id="modalImagemLabel">
+                                {{postagem.titulo}}
+                            </h5>
+
+                            <button
+                                type="button"
+                                class="btn-close btn-close-white"
+                                data-bs-dismiss="modal"
+                                aria-label="Fechar"
+                            ></button>
+                        </div>
+
+                        <div class="modal-body text-center">
+                            <img
+                                src="{{postagem.imagem}}"
+                                alt="{{postagem.titulo}}"
+                                class="imagem-modal rounded"
+                            >
+                        </div>
+                    </div>
+                </div>
+            </div>
         {{/if}}
         {{postagem.conteudo}}
     </div>
