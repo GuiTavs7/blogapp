@@ -164,7 +164,7 @@ router.post('/postagens/nova', isAdmin, upload.single('imagem'), (req, res) => {
             titulo: req.body.titulo,
             slug: req.body.slug,
             descricao: req.body.descricao,
-            imagem: req.file ? req.file.filename : null,
+            imagem: req.file ? req.file.path : null,
             conteudo: req.body.conteudo,
             categoria: req.body.categoria
         };
@@ -195,7 +195,7 @@ router.get("/postagens/edit/:id", isAdmin, (req, res) => {
     });
 });
 
-router.post("/postagens/edit/:id", isAdmin, (req, res) => {
+router.post("/postagens/edit/:id", isAdmin, upload.single('imagem'), (req, res) => {
 
     let erros = [];
 
@@ -229,7 +229,7 @@ router.post("/postagens/edit/:id", isAdmin, (req, res) => {
             postagem.descricao = req.body.descricao;
             postagem.conteudo = req.body.conteudo;
             postagem.categoria = req.body.categoria;
-            postagem.imagem = req.file ? req.file.filename : null;
+            postagem.imagem = req.file ? req.file.path : postagem.imagem;
 
             postagem.save().then(() => {
                 req.flash("success_msg", "Postagem atualizada com sucesso!");

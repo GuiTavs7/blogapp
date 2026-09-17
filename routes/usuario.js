@@ -141,7 +141,7 @@ router.post('/postagens/nova', upload.single('imagem'), estaLogado, (req, res) =
             slug: req.body.slug,
             descricao: req.body.descricao,
             conteudo: req.body.conteudo,
-            imagem: req.file ? req.file.filename : null,
+            imagem: req.file ? req.file.path : null,
             categoria: req.body.categoria
         };
         new Postagem(novaPostagem).save().then(() => {

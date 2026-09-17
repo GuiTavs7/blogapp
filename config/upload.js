@@ -1,14 +1,19 @@
 const multer = require('multer');
-const path = require('path');
+const { v2: cloudinary } = require('cloudinary');
+const { CloudinaryStorage } = require('multer-storage-cloudinary');
 
-const storage = multer.diskStorage({
-    destination: function (req, file, cb) {
-        cb(null, path.join(__dirname, '../public/uploads/'));   
-    },
-    filename: function (req, file, cb) {
-        const extension = path.extname(file.originalname);
-        const nome = Date.now() + '-' + Math.round(Math.random() * 1E9) + extension;
-        cb(null, nome);
+cloudinary.config({
+    cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+    api_key: process.env.CLOUDINARY_API_KEY,
+    api_secret: process.env.CLOUDINARY_API_SECRET
+});
+
+const storage = new CloudinaryStorage({
+    cloudinary,
+    params: {
+        folder: 'blogapp',
+        allowed_formats: ['jpg', 'jpeg', 'png', 'gif'],
+        resource_type: 'image'
     }
 });
 
