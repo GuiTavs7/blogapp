@@ -90,12 +90,15 @@ const formatarData = require('./helpers/formatarData');
 
 // 3) Rotas
     app.get('/', (req, res) => {
-        Postagem.find().populate('categoria').lean().sort({data: 'desc'}).then((postagens) => {
-            res.render('index', { postagens: postagens });
+        const busca = req.query.busca || '';
+        const filtro = busca ? { titulo: { $regex: busca, $options: 'i' } } : {};
+        Postagem.find(filtro).populate('categoria').lean().sort({data: 'desc'}).then((postagens) => {
+            res.render('index', { postagens: postagens, busca: busca });
         }).catch((err) => {
             req.flash('error_msg', 'Houve um erro ao listar as postagens');
             res.redirect('/404');
         });
+        console.log(req.query.busca);
     });
 
     app.get('/postagem/:slug', (req, res) => {

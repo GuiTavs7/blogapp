@@ -25,6 +25,19 @@
 
 <hr>
 
+<form action="/" method="GET">
+    <div class="input-group mb-3 gap-2">
+        <input type="text" class="form-control" placeholder="Buscar postagens..." name="busca" value="{{busca}}">
+        <div class="input-group-append">
+            <button class="btn btn-outline-primary" type="submit">Buscar</button>
+        </div>
+    </div>
+</form>
+
+{{#if busca}}
+    <h5>Resultados da busca por: "{{busca}}"</h5>
+{{/if}}
+
 <h2>Postagens Recentes</h2>
 
 {{#each postagens}}
@@ -43,5 +56,9 @@
         </div>
     </div>
 {{else}}
-    <h5>Nenhuma postagem</h5>
+    {{#if busca}}
+        <h5>Nenhuma postagem encontrada para "{{busca}}".</h5>
+    {{else}}
+        <h5>Nenhuma postagem cadastrada.</h5>
+    {{/if}}
 {{/each}}
