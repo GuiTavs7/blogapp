@@ -27,7 +27,7 @@
 
 <form action="/" method="GET">
     <div class="input-group mb-3 gap-2">
-        <input type="text" class="form-control" placeholder="Buscar postagens..." name="busca" value="{{busca}}">
+        <input type="text" class="form-control" id="search-posts" placeholder="Buscar postagens..." name="busca" value="{{busca}}">
         <div class="input-group-append">
             <button class="btn btn-outline-primary" type="submit">Buscar</button>
         </div>
@@ -41,7 +41,7 @@
 <h2>Postagens Recentes</h2>
 
 {{#each postagens}}
-    <div class="card bg-light card-margin mt-4">
+    <div class="card bg-light card-margin mt-4 postagem-item">
         <div class="card-body">
             <h3>{{titulo}}</h3>
             <p>{{descricao}}</p>
